@@ -1,0 +1,28 @@
+*, *::after,
+*::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: inherit;
+}
+.container{
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 20px 20px;
+}
+.form-wrapper{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+}
+.form{
+    flex-direction: column;
+    display: flex;
+}
+.form__item{
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    outline: none;
+}
