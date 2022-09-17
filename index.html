@@ -10,16 +10,16 @@
 <body>
     <div class="container">
         <div class="form-wrapper">
-            <form class="form">
+            <form class="form" name="reg">
               <label for="user_name">Login</label>
-                <input id="user_login" class="form__item" type="text" name="login">
+                <input id="user_login" class="form__item" type="text" name="user">
                 <label for="user_password">Password</label>
-                <input id="user_password" class="form__item" type="password" name="password">
+                <input id="user_password" class="form__item" type="password" name="user">
                 <label for="user_email">Email address</label>
-                <input id="user_email" class="form__item" type="email" name="email">
+                <input id="user_email" class="form__item" type="email" name="user">
                 <input class="form_btn" type="button" value="add user">
             </form>
-            <table class="form__info">
+            <table class="users">
                 <thead><tr>
                 <td>#</td>
                 <td>Login</td>
@@ -27,20 +27,10 @@
                 <td>Email</td>
                 <td>Edit</td>
                 <td>Delete</td>
-            </tr></thead>  
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <button value="edit">Edit</button>
-                    </td>
-                    <td>
-                        <button value="delete">Delete</button>
-                    </td>
-                </tr>
+            </tr>
+        </thead>  
+            <tbody class="users__info">
+
             </tbody>             
   
 
