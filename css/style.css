@@ -26,3 +26,12 @@
     border-radius: 5px;
     outline: none;
 }
+.form__btn-edit{
+    display: none;
+}
+.hide{
+    display: none;
+}
+.show{
+    display: inline-block;
+}
