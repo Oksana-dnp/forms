@@ -2,16 +2,39 @@ const addBtn = document.querySelector(".form__btn-add");
 const editBtn = document.querySelector(".form__btn-edit");
 const inputs = document.forms.reg.elements["user"];
 let changeBtns;
-addBtn.addEventListener("click", addUser);
-editBtn.addEventListener("click", addUser);
+
+addBtn.addEventListener("click", validateForm);
+editBtn.addEventListener("click", validateForm);
 let users = [];
 
-class createUser {
+class CreateUser {
     constructor(login, password, email) {
       this.login = login;
       this.password = password;
       this.email= email;
-    }
+    } 
+}
+
+
+function validateForm(e){
+  regExplogin = /^[a-z]{4,16}$/i;
+  regExpPassword = /^[\w\-\.]{4,16}$/;
+  regExpEmail = /^[\w]+@[a-z]*\.[a-z]{2,}$/
+  let userData = [];
+  for (item of inputs) {
+    userData.push(item.value);
+  }
+  console.log('userData-->',userData)
+  let [login, password, email] = userData;
+  console.log(regExplogin.test(login));
+  console.log(regExpPassword.test(password));
+  console.log(regExpEmail.test(email));
+  if(login.match(regExplogin) && password.match(regExpPassword) && email.match(regExpEmail)) {
+    addUser(e);
+  }else{
+    console.log(false)
+    //reolize error change border of wrong input
+  }
 }
 function addUser(e) {
   let userData = [];
@@ -19,7 +42,7 @@ function addUser(e) {
     userData.push(item.value);
   }
   let [login, password, email] = userData;
-  let user = new createUser(login, password, email);
+  let user = new CreateUser(login, password, email);
   console.log(user)
   if (e.target.value === "edit user") {
     let index = inputs[0].dataset.index;
@@ -28,7 +51,7 @@ function addUser(e) {
     editBtn.classList.remove('show')
 
   } 
-  if(e.target.value = "add user") {
+  if(e.target.value === "add user") {
     users.push(user);
   }
   document.forms.reg.reset();
@@ -90,4 +113,4 @@ function editUserData(index) {
   editBtn.classList.add('show');
 }
 
-}
+
