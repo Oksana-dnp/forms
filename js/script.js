@@ -13,37 +13,36 @@ class CreateUser {
       this.password = password;
       this.email= email;
     } 
+    get isValidLogin(){
+      return (/^[a-z]{4,16}$/i).test(this.login);
+    }
+    get isValidPassword(){
+      return (/^[\w\-\.]{4,16}$/).test(this.password);
+    }
+    get isValidEmail(){
+      return (/^[\w]+@[a-z]*\.[a-z]{2,}$/).test(this.email);
+    }
+
 }
-
-
 function validateForm(e){
-  regExplogin = /^[a-z]{4,16}$/i;
-  regExpPassword = /^[\w\-\.]{4,16}$/;
-  regExpEmail = /^[\w]+@[a-z]*\.[a-z]{2,}$/
   let userData = [];
   for (item of inputs) {
     userData.push(item.value);
   }
-  console.log('userData-->',userData)
-  let [login, password, email] = userData;
-  console.log(regExplogin.test(login));
-  console.log(regExpPassword.test(password));
-  console.log(regExpEmail.test(email));
-  if(login.match(regExplogin) && password.match(regExpPassword) && email.match(regExpEmail)) {
-    addUser(e);
-  }else{
-    console.log(false)
-    //reolize error change border of wrong input
-  }
-}
-function addUser(e) {
-  let userData = [];
-  for (item of inputs) {
-    userData.push(item.value);
-  }
+
   let [login, password, email] = userData;
   let user = new CreateUser(login, password, email);
-  console.log(user)
+  console.log('data', user.isValidEmail, user.isValidLogin, user.isValidPassword)
+  if(user.isValidLogin && user.isValidPassword && user.isValidEmail) {
+    inputs.forEach(input=>input.classList.remove('invalid'))
+    addUser(e, user);
+  }else{
+    if(!user.isValidLogin) document.querySelector('input[data-name="login"]').classList.add('invalid')
+    if(!user.isValidPassword) document.querySelector('input[data-name="parol"]').classList.add('invalid')
+    if(!user.isValidEmail) document.querySelector('input[data-name="email"]').classList.add('invalid')
+  }
+}
+function addUser(e, user) {
   if (e.target.value === "edit user") {
     let index = inputs[0].dataset.index;
     users[index] = user;
@@ -78,9 +77,9 @@ function renderData(user) {
     btns.forEach((btn) => {
       let button;
       if (btn.toLocaleLowerCase() === "edit") {
-        button = `<button data-name="edit" data-index= ${index}>${btn}</button>`;
+        button = `<button class="edit-btn change-btn" data-name="edit" data-index= ${index}>${btn}</button>`;
       } else {
-        button = `<button data-name="delete" data-index= ${index}>${btn}</button>`;
+        button = `<button class="delete-btn change-btn" data-name="delete" data-index= ${index}>${btn}</button>`;
       }
       let cell = `<td>${button}</td>`;
       row.innerHTML += cell;
@@ -112,5 +111,15 @@ function editUserData(index) {
   addBtn.classList.toggle('hide');
   editBtn.classList.add('show');
 }
+inputs.forEach(input=> {
+  input.addEventListener('focus', function(){
+    input.classList.add('focus')
+  }) 
+  input.addEventListener('blur', function(){
+    input.classList.remove('focus');
+  })
+
+})
+
 
 
